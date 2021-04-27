@@ -57,16 +57,21 @@ for f in files:
 
     dfCSV = pd.read_csv(f)
     dfCSV = dfCSV.drop([0,1,2])
-    if len(dfCSV) > 1:
-        del dfCSV['Number ']
-        dfCSV = pd.melt(dfCSV, id_vars =['Program name','Measurement time','Lot No.','Serial Counter','Judgment','Name'],var_name ='Characteristic',value_name ='Actual')
-        #dfCSV = dfCSV.sort_values('Characteristic')
-        #dfCSV = dfCSV.sort_values('Serial Counter')
-        dfCSV.reset_index(inplace = True, drop = True)
-        dfCSV['Actual'] = dfCSV['Actual'].astype(float)
-        df = df.append(dfCSV, ignore_index = True)
-    else:
-        print('Error: ' + f)
+    if i == 0:
+        new_headers = dfCSV.columns
+        
+    print(dfCSV.columns)
+    dfCSV.columns = new_headers
+    print(dfCSV.columns)
+    print(len(dfCSV))
+    del dfCSV['Number ']
+    dfCSV = pd.melt(dfCSV, id_vars =['Program name','Measurement time','Lot No.','Serial Counter','Judgment','Name'],var_name ='Characteristic',value_name ='Actual')
+    #dfCSV = dfCSV.sort_values('Characteristic')
+    #dfCSV = dfCSV.sort_values('Serial Counter')
+    dfCSV.reset_index(inplace = True, drop = True)
+    dfCSV['Actual'] = dfCSV['Actual'].astype(float)
+    df = df.append(dfCSV, ignore_index = True)
+
     i += 1
 
 #categorical sort based on Characteristic
