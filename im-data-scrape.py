@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import re
-
+from pandas.api.types import CategoricalDtype
 
 path = "C:/Users/hsweat/Python Notebooks/IM Data Scrape/Data1"
 program_name = '14A Complete Op2'
